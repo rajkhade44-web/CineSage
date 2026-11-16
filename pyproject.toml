@@ -2,4 +2,9 @@
 name = "cinesage"
 version = "0.1.0"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "langchain>=1.5.0",
+    "langchain-groq>=1.2.0",
+    "pydantic>=2.14.3",
+    "python-dotenv>=1.2.4",
+]
