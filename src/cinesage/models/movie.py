@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 class MovieData(BaseModel):
     title:str = Field(
@@ -37,3 +37,23 @@ class MovieData(BaseModel):
         default=None,
         max_length=1000
     )
+
+# Custom title validation
+@field_validator("title")
+@classmethod
+def validate_title(cls, value):
+    if not value:
+        raise ValueError("Movie title cannot be empty")
+
+    value = value.strip()
+
+    return value
+
+# Custom genre validation
+@field_validator("genres")
+@classmethod
+def validate_genre(cls, value):
+    genres = [genre.strip() for genre in value]
+    if any(not genre for genre in genres):
+        raise ValueError("Genre names cannot be empty")
+    return genres
